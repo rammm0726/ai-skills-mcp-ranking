@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Skills & MCP 服务器排行榜</title>
+    <meta name="description" content="全网最受欢迎的 AI Agent 技能包和 MCP 服务器榜单，基于真实安装数据和社区评价">
+    <meta name="keywords" content="AI, Agent, Skills, MCP, Model Context Protocol, 排行榜, Claude, Cursor">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🤖 AI Agent Skills & MCP 服务器排行榜</h1>
+            <p>全网最受欢迎的 AI Agent 技能包和 MCP 服务器榜单，基于真实安装数据和社区评价</p>
+            <p class="last-updated">📅 最后更新：<span id="last-updated">加载中...</span></p>
+            <div class="badge-container">
+                <span class="badge badge-skills">📦 Skills: 1.6M+ 安装</span>
+                <span class="badge badge-mcp">🔌 MCP: 64K+ Stars</span>
+            </div>
+        </header>
+        
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="skills">📦 Skills 排行榜</button>
+            <button class="tab" data-tab="mcp">🔌 MCP 服务器</button>
+        </div>
+        
+        <!-- Skills Section -->
+        <section id="skills-section">
+            <div class="section-title">
+                <div class="section-icon icon-skills">📦</div>
+                <h2>Agent Skills 排行榜</h2>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" id="skills-search" placeholder="🔍 搜索 Skills 名称或功能...">
+            </div>
+            
+            <div class="table-container">
+                <table id="skills-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>名称</th>
+                            <th>安装量</th>
+                            <th>分类</th>
+                            <th>核心用途</th>
+                            <th>安装命令</th>
+                        </tr>
+                    </thead>
+                    <tbody id="skills-body">
+                        <tr><td colspan="6" class="loading">加载中...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="no-results hidden" id="skills-no-results">未找到匹配的 Skills</div>
+        </section>
+        
+        <!-- MCP Section -->
+        <section id="mcp-section" class="hidden">
+            <div class="section-title">
+                <div class="section-icon icon-mcp">🔌</div>
+                <h2>MCP 服务器排行榜</h2>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" id="mcp-search" placeholder="🔍 搜索 MCP 服务器名称或功能...">
+            </div>
+            
+            <div class="filter-container" id="mcp-filters">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="frontend">前端</button>
+                <button class="filter-btn" data-filter="azure">Azure</button>
+                <button class="filter-btn" data-filter="tool">工具</button>
+                <button class="filter-btn" data-filter="design">设计</button>
+                <button class="filter-btn" data-filter="data">数据</button>
+                <button class="filter-btn" data-filter="video">多媒体</button>
+            </div>
+            
+            <div class="table-container">
+                <table id="mcp-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>名称</th>
+                            <th>Stars</th>
+                            <th>分类</th>
+                            <th>核心用途</th>
+                            <th>安装命令</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mcp-body">
+                        <tr><td colspan="6" class="loading">加载中...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="no-results hidden" id="mcp-no-results">未找到匹配的 MCP 服务器</div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <p>数据来源：<a href="https://skills.sh/" target="_blank">skills.sh</a>、<a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank">awesome-mcp-servers</a>、<a href="https://mcp.so" target="_blank">mcp.so</a></p>
+            <p style="margin-top: 0.5rem;">最后更新：<span id="footer-updated">加载中...</span> | 每周一自动更新</p>
+        </footer>
+    </div>
+    
+    <!-- 数据文件 -->
+    <script src="data/skills-data.js"></script>
+    <script src="data/mcp-data.js"></script>
+    <!-- 主逻辑 -->
+    <script src="js/app.js"></script>
+</body>
+</html>
