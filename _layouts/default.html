@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | AI Agent Skills &amp; MCP Ranking</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">AI Skills Ranking</span>
+            </a>
+            <div class="tabs" id="nav-tabs">
+                <button class="tab" data-tab="skills" onclick="switchTab('skills')">
+                    <span class="tab-zh">Skills 排行榜</span>
+                    <span class="tab-en">Skills Ranking</span>
+                </button>
+                <button class="tab" data-tab="mcp" onclick="switchTab('mcp')">
+                    <span class="tab-zh">MCP 排行榜</span>
+                    <span class="tab-en">MCP Ranking</span>
+                </button>
+                <button class="tab" data-tab="articles" onclick="switchTab('articles')">
+                    <span class="tab-zh">技术文章</span>
+                    <span class="tab-en">Articles</span>
+                </button>
+                <button class="tab" data-tab="reviews" onclick="switchTab('reviews')">
+                    <span class="tab-zh">工具测评</span>
+                    <span class="tab-en">Reviews</span>
+                </button>
+            </div>
+            <div class="nav-lang">
+                <button class="lang-btn active" data-lang="zh" onclick="setLang('zh')">CN</button>
+                <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content container">
+        {{ content }}
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>数据来源</h4>
+                <div class="footer-links">
+                    <a href="https://skills.sh/" target="_blank" rel="noopener">skills.sh</a>
+                    <a href="https://skillhub.cn/" target="_blank" rel="noopener">skillhub.cn</a>
+                    <a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank" rel="noopener">awesome-mcp-servers</a>
+                    <a href="https://mcp.so" target="_blank" rel="noopener">mcp.so</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <p class="copyright">
+                    © 2026 AI Agent Skills &amp; MCP Ranking.
+                    数据仅供参考，排名基于公开数据统计
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top" title="Back to Top">&#8593;</button>
+
+    <script>
+    var currentLang = localStorage.getItem('lang') || 'zh';
+    var I18N = {
+        zh: {
+            skillsTab: 'Skills 排行榜',
+            mcpTab: 'MCP 排行榜',
+            articlesTab: '技术文章',
+            reviewsTab: '工具测评',
+            dataSources: '数据来源',
+            footerNote: '数据仅供参考，排名基于公开数据统计'
+        },
+        en: {
+            skillsTab: 'Skills Ranking',
+            mcpTab: 'MCP Ranking',
+            articlesTab: 'Articles',
+            reviewsTab: 'Reviews',
+            dataSources: 'Data Sources',
+            footerNote: 'Data for reference only'
+        }
+    };
+
+    function setLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+        // Update lang buttons
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+
+        // Update tab labels
+        document.querySelectorAll('.tab-zh').forEach(function(el) {
+            el.style.display = lang === 'zh' ? 'inline' : 'none';
+        });
+        document.querySelectorAll('.tab-en').forEach(function(el) {
+            el.style.display = lang === 'en' ? 'inline' : 'none';
+        });
+    }
+
+    function switchTab(tabName) {
+        // Save active tab and navigate to homepage with tab parameter
+        localStorage.setItem('activeTab', tabName);
+        window.location.href = '/?tab=' + tabName;
+    }
+
+    function highlightActiveTab() {
+        var path = window.location.pathname;
+        var tab = 'skills'; // default
+
+        if (path.indexOf('/reviews/') !== -1 || path.indexOf('/reviews.html') !== -1) {
+            tab = 'reviews';
+        } else if (path.indexOf('/articles/') !== -1 || path.indexOf('/articles.html') !== -1) {
+            tab = 'articles';
+        } else if (path.indexOf('/mcp') !== -1) {
+            tab = 'mcp';
+        } else if (path.indexOf('/skills') !== -1 || path === '/' || path === '/index.html') {
+            tab = 'skills';
+        }
+
+        // Check URL param first
+        var params = new URLSearchParams(window.location.search);
+        var tabParam = params.get('tab');
+        if (tabParam) tab = tabParam;
+
+        document.querySelectorAll('#nav-tabs .tab').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.tab === tab);
+        });
+    }
+
+    // Back to top
+    var backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function() {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', function() {
+        setLang(currentLang);
+        highlightActiveTab();
+    });
+    </script>
+</body>
+</html>

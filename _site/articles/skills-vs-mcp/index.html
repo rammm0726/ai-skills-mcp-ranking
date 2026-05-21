@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Skills vs MCP：有什么区别？ | AI Agent Skills &amp; MCP Ranking</title>
+    <meta name="description" content="AI Agent Skills和MCP是两种不同的AI工具扩展方式。本文从架构、使用场景、生态等多个维度进行对比，帮你选择最适合的方案。">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">AI Skills Ranking</span>
+            </a>
+            <div class="tabs" id="nav-tabs">
+                <button class="tab" data-tab="skills" onclick="switchTab('skills')">
+                    <span class="tab-zh">Skills 排行榜</span>
+                    <span class="tab-en">Skills Ranking</span>
+                </button>
+                <button class="tab" data-tab="mcp" onclick="switchTab('mcp')">
+                    <span class="tab-zh">MCP 排行榜</span>
+                    <span class="tab-en">MCP Ranking</span>
+                </button>
+                <button class="tab" data-tab="articles" onclick="switchTab('articles')">
+                    <span class="tab-zh">技术文章</span>
+                    <span class="tab-en">Articles</span>
+                </button>
+                <button class="tab" data-tab="reviews" onclick="switchTab('reviews')">
+                    <span class="tab-zh">工具测评</span>
+                    <span class="tab-en">Reviews</span>
+                </button>
+            </div>
+            <div class="nav-lang">
+                <button class="lang-btn active" data-lang="zh" onclick="setLang('zh')">CN</button>
+                <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content container">
+        <h2>核心区别一览</h2>
+
+<p>在深入细节之前，先用一张表概括两者的核心差异：</p>
+
+<p>| 维度 | AI Agent Skills | MCP 服务器 |
+|-----|----------------|-----------|
+| <strong>本质</strong> | 预设的提示词模板 + 工具集 | 标准化的外部服务接口 |
+| <strong>创建者</strong> | 社区开发者 | 任何开发者/组织 |
+| <strong>运行方式</strong> | 嵌入AI对话流程 | 独立进程，通过协议通信 |
+| <strong>适用平台</strong> | 特定Agent平台（如Solo） | 任何支持MCP的AI应用 |
+| <strong>安装方式</strong> | npx skills add | 配置JSON或npx运行 |
+| <strong>自定义程度</strong> | 中等（修改提示词） | 高（完全自主开发） |
+| <strong>典型用途</strong> | 增强AI对话能力 | 连接外部系统和数据 |</p>
+
+<h2>什么是 AI Agent Skills？</h2>
+
+<strong>AI Agent Skills</strong> 是一种为AI助手预设的"技能包"，本质上是一组精心设计的提示词（Prompt）和工具指令的组合。
+
+<h3>工作原理</h3>
+
+<pre><code>用户提问 → Agent加载Skill → Skill提供专业提示词+工具 → Agent生成更专业的回答
+</code></pre>
+
+<p>举个例子，当你安装了 <code>frontend-design</code> 这个Skill后，AI在帮你设计前端界面时会：
+<li>自动遵循设计最佳实践</li>
+<li>使用正确的技术栈建议</li>
+<li>输出更专业的代码结构</li></p>
+
+<h3>核心特点</h3>
+<li><strong>即装即用</strong>：一条命令安装，无需配置</li>
+<li><strong>提示词增强</strong>：本质是高质量的Prompt工程</li>
+<li><strong>平台绑定</strong>：通常只能在特定Agent平台使用</li>
+<li><strong>社区驱动</strong>：由社区开发者贡献和维护</li>
+
+<h2>什么是 MCP 服务器？</h2>
+
+<strong>MCP（Model Context Protocol）</strong> 是Anthropic推出的开放协议，让AI应用能够安全地连接外部工具和数据源。
+
+<h3>工作原理</h3>
+
+<pre><code>AI应用 ←→ MCP客户端 ←→ MCP服务器 ←→ 外部系统（数据库、API、文件等）
+</code></pre>
+
+<p>MCP服务器是一个独立运行的程序，通过标准化的协议与AI应用通信。</p>
+
+<h3>核心特点</h3>
+<li><strong>协议标准化</strong>：一次开发，多平台使用</li>
+<li><strong>独立运行</strong>：不依赖特定AI应用</li>
+<li><strong>安全可控</strong>：标准化的权限管理模型</li>
+<li><strong>高度灵活</strong>：可以连接任何外部系统</li>
+
+<h2>详细对比分析</h2>
+
+<h3>1. 架构差异</h3>
+
+<strong>Skills 的架构更简单</strong>：
+<li>本质是文本文件（提示词 + 配置）</li>
+<li>由Agent平台解析和执行</li>
+<li>不需要额外的运行环境</li>
+
+<strong>MCP 的架构更强大</strong>：
+<li>独立的客户端-服务器架构</li>
+<li>支持多种传输方式（stdio、HTTP SSE）</li>
+<li>可以执行复杂的数据操作</li>
+
+<h3>2. 使用场景对比</h3>
+
+<p>| 场景 | 推荐方案 | 原因 |
+|-----|---------|------|
+| 提升AI写作质量 | Skills | 提示词增强效果明显 |
+| 连接数据库 | MCP | 需要实际的数据操作能力 |
+| 代码审查 | Skills | 提供专业的审查视角 |
+| 操作文件系统 | MCP | 需要实际的文件读写能力 |
+| 前端设计 | Skills | 提供设计规范和最佳实践 |
+| 发送Slack消息 | MCP | 需要实际的API调用能力 |
+| 项目管理 | MCP | 需要连接外部项目管理工具 |</p>
+
+<h3>3. 生态系统对比</h3>
+
+<strong>Skills 生态</strong>：
+<li>主要集中在 <a href="https://skills.sh/">skills.sh</a> 和 <a href="https://skillhub.cn/">skillhub.cn</a></li>
+<li>总安装量超过160万次</li>
+<li>以Solo、Claude等平台为主要使用场景</li>
+<li>社区贡献者活跃</li>
+
+<strong>MCP 生态</strong>：
+<li>GitHub上 <a href="https://github.com/punkpeye/awesome-mcp-servers">awesome-mcp-servers</a> 收录了大量服务器</li>
+<li>官方服务器获得超过64K Stars</li>
+<li>被Claude Desktop、Cursor、Windsurf等应用支持</li>
+<li>企业级支持（Microsoft、AWS等）</li>
+
+<h3>4. 学习曲线</h3>
+
+<strong>Skills</strong>：⭐⭐（简单）
+<li>安装：一条命令</li>
+<li>使用：自动生效</li>
+<li>创建：需要掌握Prompt工程</li>
+
+<strong>MCP</strong>：⭐⭐⭐⭐（较复杂）
+<li>安装：需要配置JSON</li>
+<li>使用：需要理解协议概念</li>
+<li>开发：需要编程能力（Python/Node.js）</li>
+
+<h2>如何选择？</h2>
+
+<h3>选 Skills 的场景</h3>
+
+<p>1. <strong>你是普通用户</strong>，只想让AI更聪明
+2. <strong>你的需求是提示词层面的增强</strong>（如更好的写作、设计）
+3. <strong>你不想折腾配置</strong>，希望即装即用
+4. <strong>你使用的是特定Agent平台</strong>（如Solo）</p>
+
+<p>推荐热门Skills：
+<li><code>find-skills</code> - 智能搜索和安装Skills（160万安装）</li>
+<li><code>frontend-design</code> - 生产级前端设计（43万安装）</li>
+<li><code>web-design-guidelines</code> - Web设计规范（33万安装）</li></p>
+
+<h3>选 MCP 的场景</h3>
+
+<p>1. <strong>你需要AI操作外部系统</strong>（数据库、API、文件）
+2. <strong>你是开发者</strong>，想为AI构建自定义工具
+3. <strong>你需要跨平台兼容性</strong>
+4. <strong>你的需求涉及敏感数据操作</strong></p>
+
+<p>推荐热门MCP服务器：
+<li><code>@modelcontextprotocol/server-filesystem</code> - 文件系统管理</li>
+<li><code>@modelcontextprotocol/server-github</code> - GitHub操作</li>
+<li><code>@modelcontextprotocol/server-postgres</code> - PostgreSQL数据库</li></p>
+
+<h2>它们能一起用吗？</h2>
+
+<strong>当然可以！</strong> 事实上，Skills和MCP是互补关系：
+
+<pre><code>用户 → Agent（加载Skills增强能力）→ MCP客户端 → MCP服务器 → 外部系统
+</code></pre>
+
+<p>例如：
+<li>使用 <code>frontend-design</code> Skill 提供设计指导</li>
+<li>同时通过 <code>Figma MCP</code> 读取设计稿</li>
+<li>最终输出既专业又基于实际设计稿的代码</li></p>
+
+<h2>未来趋势</h2>
+
+<h3>Skills 的发展方向</h3>
+<li>更智能的Skill推荐系统</li>
+<li>跨平台Skill标准</li>
+<li>Skill组合和编排</li>
+<li>企业级Skill市场</li>
+
+<h3>MCP 的发展方向</h3>
+<li>更多AI应用原生支持</li>
+<li>企业级MCP服务器生态</li>
+<li>MCP安全标准完善</li>
+<li>可视化MCP配置工具</li>
+
+<h2>总结</h2>
+
+<p>| | Skills | MCP |
+|---|--------|-----|
+| <strong>适合谁</strong> | 所有AI用户 | 开发者和高级用户 |
+| <strong>解决什么</strong> | AI能力增强 | AI与外部系统连接 |
+| <strong>上手难度</strong> | 简单 | 较复杂 |
+| <strong>扩展性</strong> | 中等 | 高 |
+| <strong>独立性</strong> | 平台绑定 | 跨平台 |</p>
+
+<strong>简单来说</strong>：Skills让AI更懂行，MCP让AI能动手。两者结合使用，才能发挥AI的最大价值。
+
+<p>想要查看完整的Skills和MCP排行榜，欢迎访问我们的<a href="/">首页</a>。</p>
+
+---
+
+<em>最后更新：2025年5月21日</em>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>数据来源</h4>
+                <div class="footer-links">
+                    <a href="https://skills.sh/" target="_blank" rel="noopener">skills.sh</a>
+                    <a href="https://skillhub.cn/" target="_blank" rel="noopener">skillhub.cn</a>
+                    <a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank" rel="noopener">awesome-mcp-servers</a>
+                    <a href="https://mcp.so" target="_blank" rel="noopener">mcp.so</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <p class="copyright">
+                    © 2026 AI Agent Skills &amp; MCP Ranking.
+                    数据仅供参考，排名基于公开数据统计
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top" title="Back to Top">&#8593;</button>
+
+    <script>
+    var currentLang = localStorage.getItem('lang') || 'zh';
+    var I18N = {
+        zh: {
+            skillsTab: 'Skills 排行榜',
+            mcpTab: 'MCP 排行榜',
+            articlesTab: '技术文章',
+            reviewsTab: '工具测评',
+            dataSources: '数据来源',
+            footerNote: '数据仅供参考，排名基于公开数据统计'
+        },
+        en: {
+            skillsTab: 'Skills Ranking',
+            mcpTab: 'MCP Ranking',
+            articlesTab: 'Articles',
+            reviewsTab: 'Reviews',
+            dataSources: 'Data Sources',
+            footerNote: 'Data for reference only'
+        }
+    };
+
+    function setLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+        // Update lang buttons
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+
+        // Update tab labels
+        document.querySelectorAll('.tab-zh').forEach(function(el) {
+            el.style.display = lang === 'zh' ? 'inline' : 'none';
+        });
+        document.querySelectorAll('.tab-en').forEach(function(el) {
+            el.style.display = lang === 'en' ? 'inline' : 'none';
+        });
+    }
+
+    function switchTab(tabName) {
+        // Save active tab and navigate to homepage with tab parameter
+        localStorage.setItem('activeTab', tabName);
+        window.location.href = '/?tab=' + tabName;
+    }
+
+    function highlightActiveTab() {
+        var path = window.location.pathname;
+        var tab = 'skills'; // default
+
+        if (path.indexOf('/reviews/') !== -1 || path.indexOf('/reviews.html') !== -1) {
+            tab = 'reviews';
+        } else if (path.indexOf('/articles/') !== -1 || path.indexOf('/articles.html') !== -1) {
+            tab = 'articles';
+        } else if (path.indexOf('/mcp') !== -1) {
+            tab = 'mcp';
+        } else if (path.indexOf('/skills') !== -1 || path === '/' || path === '/index.html') {
+            tab = 'skills';
+        }
+
+        // Check URL param first
+        var params = new URLSearchParams(window.location.search);
+        var tabParam = params.get('tab');
+        if (tabParam) tab = tabParam;
+
+        document.querySelectorAll('#nav-tabs .tab').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.tab === tab);
+        });
+    }
+
+    // Back to top
+    var backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function() {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', function() {
+        setLang(currentLang);
+        highlightActiveTab();
+    });
+    </script>
+</body>
+</html>

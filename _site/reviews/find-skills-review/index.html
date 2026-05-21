@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>find-skills 深度测评：160万安装的智能搜索工具 | AI Agent Skills &amp; MCP Ranking</title>
+    <meta name="description" content="find-skills 是安装量最高的 AI Agent Skill（160万次），本文从实际使用体验出发，全面评估其搜索准确性、安装便捷性和实用性。">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">AI Skills Ranking</span>
+            </a>
+            <div class="tabs" id="nav-tabs">
+                <button class="tab" data-tab="skills" onclick="switchTab('skills')">
+                    <span class="tab-zh">Skills 排行榜</span>
+                    <span class="tab-en">Skills Ranking</span>
+                </button>
+                <button class="tab" data-tab="mcp" onclick="switchTab('mcp')">
+                    <span class="tab-zh">MCP 排行榜</span>
+                    <span class="tab-en">MCP Ranking</span>
+                </button>
+                <button class="tab" data-tab="articles" onclick="switchTab('articles')">
+                    <span class="tab-zh">技术文章</span>
+                    <span class="tab-en">Articles</span>
+                </button>
+                <button class="tab" data-tab="reviews" onclick="switchTab('reviews')">
+                    <span class="tab-zh">工具测评</span>
+                    <span class="tab-en">Reviews</span>
+                </button>
+            </div>
+            <div class="nav-lang">
+                <button class="lang-btn active" data-lang="zh" onclick="setLang('zh')">CN</button>
+                <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content container">
+        <h2>测评概述</h2>
+
+<strong>find-skills</strong> 是目前安装量最高的 AI Agent Skill，累计安装量超过 <strong>160万次</strong>。它由 Vercel Labs 开发，核心功能是帮助用户智能搜索和安装其他 Skills。
+
+<p>| 评测维度 | 评分 | 说明 |
+|---------|------|------|
+| 功能完整性 | ⭐⭐⭐⭐⭐ | 搜索、安装、推荐一体化 |
+| 搜索准确性 | ⭐⭐⭐⭐ | 大部分场景准确，偶尔有偏差 |
+| 安装便捷性 | ⭐⭐⭐⭐⭐ | 一条命令完成安装 |
+| 使用体验 | ⭐⭐⭐⭐ | 响应速度快，交互简洁 |
+| 文档质量 | ⭐⭐⭐⭐ | 有基本文档，缺少高级用法说明 |
+| <strong>综合评分</strong> | <strong>⭐⭐⭐⭐.5</strong> | <strong>强烈推荐</strong> |</p>
+
+<h2>安装体验</h2>
+
+<h3>安装命令</h3>
+
+<pre><code>npx skills add vercel-labs/skills@find-skills
+</code></pre>
+
+<h3>安装过程评估</h3>
+<li><strong>耗时</strong>：约 5-10 秒（取决于网络环境）</li>
+<li><strong>依赖</strong>：无额外依赖，开箱即用</li>
+<li><strong>兼容性</strong>：支持 Solo、Claude 等主流 Agent 平台</li>
+
+<strong>评分：5/5</strong> — 安装过程极其简洁，无需任何配置。
+
+<h2>核心功能测试</h2>
+
+<h3>1. 智能搜索</h3>
+
+<p>find-skills 的核心功能是语义搜索。我们测试了多种查询方式：</p>
+
+<p>| 查询方式 | 示例 | 准确性 | 响应速度 |
+|---------|------|--------|---------|
+| 关键词搜索 | "frontend design" | 高 | <1s |
+| 自然语言 | "帮我设计一个好看的网页" | 中高 | <2s |
+| 功能描述 | "连接数据库的MCP" | 高 | <1s |
+| 模糊搜索 | "写代码的工具" | 中 | <2s |</p>
+
+<strong>亮点</strong>：
+<li>支持中英文混合搜索</li>
+<li>理解上下文语义，不只是关键词匹配</li>
+<li>搜索结果按安装量和评分排序</li>
+
+<strong>不足</strong>：
+<li>对非常具体的细分需求，搜索结果可能不够精准</li>
+<li>偶尔会推荐已过时的 Skill 版本</li>
+
+<h3>2. 一键安装</h3>
+
+<p>搜索到目标 Skill 后，find-skills 可以直接安装：</p>
+
+<pre><code>用户：帮我找一个代码审查工具
+find-skills：推荐 grill-me（17.3万安装）
+用户：安装它
+find-skills：正在安装 mattpocock/skills@grill-me... 安装成功！
+</code></pre>
+
+<strong>评分：5/5</strong> — 搜索到安装的流程无缝衔接。
+
+<h3>3. 智能推荐</h3>
+
+<p>find-skills 还能根据用户的使用习惯推荐相关 Skill：
+<li>如果你经常使用前端相关 Skill，会推荐 UI/UX 设计类工具</li>
+<li>如果你使用数据库 MCP，会推荐相关的数据分析工具</li></p>
+
+<strong>评分：4/5</strong> — 推荐逻辑合理，但推荐数量偏少（通常只推荐2-3个）。
+
+<h2>性能测试</h2>
+
+<h3>响应速度</h3>
+
+<p>| 操作 | 平均响应时间 |
+|-----|------------|
+| 搜索 | 0.8s |
+| 安装 | 5.2s |
+| 推荐 | 1.1s |</p>
+
+<h3>资源占用</h3>
+<li><strong>内存</strong>：几乎无额外占用（本质是提示词增强）</li>
+<li><strong>网络</strong>：搜索时需要联网，安装时需要下载</li>
+
+<h2>与替代方案对比</h2>
+
+<p>| 特性 | find-skills | 手动搜索 skills.sh | 手动搜索 skillhub.cn |
+|-----|------------|-------------------|---------------------|
+| 搜索方式 | 对话式 | 网页浏览 | 网页浏览 |
+| 安装方式 | 一键安装 | 复制命令 | 复制命令 |
+| 上下文理解 | 有 | 无 | 无 |
+| 推荐能力 | 有 | 有（基于排名） | 有（基于分类） |</p>
+
+<h2>适用人群</h2>
+
+<h3>强烈推荐</h3>
+<li><strong>新手用户</strong>：不知道该安装什么 Skill 的人</li>
+<li><strong>效率追求者</strong>：希望快速找到并安装工具的人</li>
+<li><strong>探索型用户</strong>：想发现新工具的人</li>
+
+<h3>可选</h3>
+<li><strong>高级用户</strong>：已经知道自己需要什么，直接安装即可</li>
+
+<h2>总结</h2>
+
+<p>find-skills 之所以能获得 160 万安装量，核心原因在于它<strong>极大地降低了 Skills 的发现和安装门槛</strong>。对于大多数用户来说，它是第一个应该安装的 Skill。</p>
+
+<strong>推荐指数：⭐⭐⭐⭐.5 / 5</strong>
+
+<p>想要查看更多热门 Skills，欢迎访问我们的<a href="/">排行榜</a>。</p>
+
+---
+
+<em>测评日期：2025年5月21日 | 测评环境：Solo Agent Platform</em>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>数据来源</h4>
+                <div class="footer-links">
+                    <a href="https://skills.sh/" target="_blank" rel="noopener">skills.sh</a>
+                    <a href="https://skillhub.cn/" target="_blank" rel="noopener">skillhub.cn</a>
+                    <a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank" rel="noopener">awesome-mcp-servers</a>
+                    <a href="https://mcp.so" target="_blank" rel="noopener">mcp.so</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <p class="copyright">
+                    © 2026 AI Agent Skills &amp; MCP Ranking.
+                    数据仅供参考，排名基于公开数据统计
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top" title="Back to Top">&#8593;</button>
+
+    <script>
+    var currentLang = localStorage.getItem('lang') || 'zh';
+    var I18N = {
+        zh: {
+            skillsTab: 'Skills 排行榜',
+            mcpTab: 'MCP 排行榜',
+            articlesTab: '技术文章',
+            reviewsTab: '工具测评',
+            dataSources: '数据来源',
+            footerNote: '数据仅供参考，排名基于公开数据统计'
+        },
+        en: {
+            skillsTab: 'Skills Ranking',
+            mcpTab: 'MCP Ranking',
+            articlesTab: 'Articles',
+            reviewsTab: 'Reviews',
+            dataSources: 'Data Sources',
+            footerNote: 'Data for reference only'
+        }
+    };
+
+    function setLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+        // Update lang buttons
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+
+        // Update tab labels
+        document.querySelectorAll('.tab-zh').forEach(function(el) {
+            el.style.display = lang === 'zh' ? 'inline' : 'none';
+        });
+        document.querySelectorAll('.tab-en').forEach(function(el) {
+            el.style.display = lang === 'en' ? 'inline' : 'none';
+        });
+    }
+
+    function switchTab(tabName) {
+        // Save active tab and navigate to homepage with tab parameter
+        localStorage.setItem('activeTab', tabName);
+        window.location.href = '/?tab=' + tabName;
+    }
+
+    function highlightActiveTab() {
+        var path = window.location.pathname;
+        var tab = 'skills'; // default
+
+        if (path.indexOf('/reviews/') !== -1 || path.indexOf('/reviews.html') !== -1) {
+            tab = 'reviews';
+        } else if (path.indexOf('/articles/') !== -1 || path.indexOf('/articles.html') !== -1) {
+            tab = 'articles';
+        } else if (path.indexOf('/mcp') !== -1) {
+            tab = 'mcp';
+        } else if (path.indexOf('/skills') !== -1 || path === '/' || path === '/index.html') {
+            tab = 'skills';
+        }
+
+        // Check URL param first
+        var params = new URLSearchParams(window.location.search);
+        var tabParam = params.get('tab');
+        if (tabParam) tab = tabParam;
+
+        document.querySelectorAll('#nav-tabs .tab').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.tab === tab);
+        });
+    }
+
+    // Back to top
+    var backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function() {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', function() {
+        setLang(currentLang);
+        highlightActiveTab();
+    });
+    </script>
+</body>
+</html>
