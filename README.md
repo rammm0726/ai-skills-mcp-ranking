@@ -1,6 +1,6 @@
 # AI Agent Skills & MCP Ranking
 
-**访问地址:** https://rrramxy.github.io/ai-skills-mcp-ranking/
+**访问地址:** https://rammm0726.github.io/ai-skills-mcp-ranking/
 
 ---
 
@@ -70,7 +70,7 @@ featured_image: "assets/images/article-slug/image.png"
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/rrramxy/ai-skills-mcp-ranking.git
+git clone https://github.com/rammm0726/ai-skills-mcp-ranking.git
 cd ai-skills-mcp-ranking
 
 # 2. 导入文章
