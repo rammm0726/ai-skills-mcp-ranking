@@ -67,28 +67,30 @@ MIT License
 
 ## 新增文章指南
 
-### 方法一：使用 Obsidian 导入脚本（推荐）
+### 方法一：使用导入脚本（推荐）
 
-如果你在 Obsidian 中创作文章，可以一键导入：
+支持从 Obsidian 导入文章，自动处理图片：
 
 ```bash
-# 1. 导入单个文章（需要指定你的 Obsidian Vault 路径用于查找图片）
-./scripts/quick-import.sh ~/Obsidian/my-article.md ~/Obsidian
+# 基本用法
+python scripts/import_md.py /path/to/article.md article|review
 
-# 或使用 Python 直接运行
-python scripts/import_obsidian.py /path/to/article.md --vault /path/to/Obsidian
+# 示例：导入技术文章
+python scripts/import_md.py ~/Obsidian/my-article.md article
 
-# 2. 预览模式（不写入文件）
-python scripts/import_obsidian.py /path/to/article.md --dry-run
-
-# 3. 扫描整个 Vault
-python scripts/import_obsidian.py /path/to/Vault --scan
+# 示例：导入测评文章
+python scripts/import_md.py ~/Obsidian/review.md review
 ```
 
-脚本会自动处理：
-- Wiki 链接图片 `![[image.png]]` → 复制到 `assets/images/{slug}/`
-- 生成符合规范的 frontmatter
-- 转换图片路径为相对路径
+**参数说明：**
+- `/path/to/article.md` - 文章的绝对路径
+- `article` - 技术文章，分类自动设为「教程」
+- `review` - 测评文章，分类自动设为「测评」
+
+**脚本自动处理：**
+- ✅ Wiki 链接图片 `![[image.png]]` → 复制到 `assets/images/{slug}/`
+- ✅ 转换图片路径为相对路径
+- ✅ 生成符合规范的 frontmatter
 
 ### 方法二：手动添加
 
