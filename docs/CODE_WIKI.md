@@ -15,8 +15,6 @@
 - 构建：自定义 Python 脚本（`scripts/build.py`）
 - 部署：GitHub Pages + GitHub Actions
 
-**访问地址：** https://rrramxy.github.io/ai-skills-mcp-ranking/
-
 ---
 
 ## 目录结构
@@ -214,15 +212,16 @@ I18N = {
 **Frontmatter 格式：**
 ```yaml
 ---
-title: "文章标题"
-subtitle: "副标题"
-description: "SEO 描述"
-date: 2025-05-20
-category: "教程"
-tags: ["MCP", "入门指南"]
-reading_time: 8
-author: "作者名"
-lang: zh
+title: "文章标题"              # 必填
+subtitle: "副标题"             # 必填
+description: "SEO 描述"        # 必填，用于搜索引擎优化
+date: 2025-05-20               # 必填，格式：YYYY-MM-DD
+category: "教程"               # 必填，可选值：教程、对比、测评
+tags: ["MCP", "入门指南"]      # 可选，标签数组
+reading_time: 8                # 必填，预估阅读分钟数
+author: "作者名"               # 可选
+lang: zh                       # 必填，可选值：zh、en
+layout: article                # 可选，默认：article；测评类使用：review
 ---
 ```
 
@@ -250,39 +249,6 @@ lang: zh
 
 ---
 
-## 项目运行方式
-
-### 本地开发
-
-```bash
-# 克隆仓库
-git clone https://github.com/rrramxy/ai-skills-mcp-ranking.git
-
-# 进入目录
-cd ai-skills-mcp-ranking
-
-# 构建静态文件
-python scripts/build.py
-
-# 启动本地服务器（任选一种）
-npx serve .
-python -m http.server 8080
-
-# 或直接服务构建产物
-cd _site && python -m http.server 8080
-```
-
-### 部署流程
-
-1. 本地修改代码
-2. 运行 `python scripts/build.py` 测试构建
-3. 本地浏览器验证（localhost:8080）
-4. `git add -A && git commit -m "..."`
-5. `git push origin main`
-6. GitHub Actions 自动部署到 GitHub Pages
-
----
-
 ## 数据来源
 
 | 数据源 | 说明 |
@@ -299,34 +265,6 @@ cd _site && python -m http.server 8080
 ### GitHub Pages 配置
 - **部署方式：** GitHub Actions → GitHub Pages
 - **baseurl：** `/ai-skills-mcp-ranking`
-- **访问地址：** `https://rrramxy.github.io/ai-skills-mcp-ranking/`
-
-### 构建配置 (scripts/build.py)
-```python
-BASEURL = '/ai-skills-mcp-ranking'
-
-site_config = {
-    'title': 'AI Agent Skills & MCP Ranking',
-    'description': '全网最受欢迎的 AI Agent 技能包和 MCP 服务器排行榜',
-    'url': 'https://rrramxy.github.io',
-    'baseurl': BASEURL,
-}
-```
-
----
-
-## 待办事项
-
-### 已知问题
-1. **文章页面导航问题** - Tab 切换需要优化
-2. **GitHub Pages 部署** - 需要验证部署后路径是否正确
-3. **数据更新工作流** - `update-data.yml` 需要添加构建步骤
-
-### 建议优化
-1. **SEO 优化** - 添加 meta description、Open Graph 标签、sitemap.xml
-2. **性能优化** - 图片懒加载、数据分页
-3. **内容扩展** - 添加更多技术文章和工具测评
-4. **构建脚本改进** - 配置从文件读取
 
 ---
 
