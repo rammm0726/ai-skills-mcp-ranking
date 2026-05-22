@@ -3,6 +3,7 @@ title: "find-skills 深度测评：160万安装的智能搜索工具"
 subtitle: "安装量第一的 Skill 真的值得用吗？我们从功能、性能、易用性三个维度进行深度测评"
 description: "find-skills 是安装量最高的 AI Agent Skill（160万次），本文从实际使用体验出发，全面评估其搜索准确性、安装便捷性和实用性。"
 date: 2025-05-21
+layout: review
 category: "Skill"
 tags: ["find-skills", "测评", "Skills", "工具评测"]
 reading_time: 12

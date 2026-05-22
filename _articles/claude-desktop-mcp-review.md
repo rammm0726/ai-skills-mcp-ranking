@@ -3,6 +3,7 @@ title: "Claude Desktop MCP 集成体验报告"
 subtitle: "实际体验 Claude Desktop 的 MCP 服务器集成效果，包括配置难度、稳定性和实用性评估"
 description: "Claude Desktop 是最早原生支持 MCP 协议的 AI 应用。本文通过实际配置和使用多个 MCP 服务器的体验，全面评估其集成效果。"
 date: 2025-05-20
+layout: review
 category: "MCP"
 tags: ["Claude", "MCP", "测评", "桌面应用", "Anthropic"]
 reading_time: 15

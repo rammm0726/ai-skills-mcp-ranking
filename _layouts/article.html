@@ -1,78 +1,16 @@
----
-layout: default
----
-
 <article class="article-page">
-    <!-- Article Header -->
     <header class="article-header">
         <div class="article-meta">
-            <span class="article-date">{{ page.date | date: '%Y-%m-%d' }}</span>
-            {% if page.category %}
+            <span class="article-date">{{ page.date }}</span>
             <span class="article-category">{{ page.category }}</span>
-            {% endif %}
-            {% if page.reading_time %}
             <span class="article-reading-time">{{ page.reading_time }} min read</span>
-            {% endif %}
         </div>
         <h1 class="article-title">{{ page.title }}</h1>
-        {% if page.subtitle %}
         <p class="article-subtitle">{{ page.subtitle }}</p>
-        {% endif %}
-        {% if page.author %}
-        <div class="article-author">
-            <span>By {{ page.author }}</span>
-        </div>
-        {% endif %}
     </header>
-
-    <!-- Article Content -->
     <div class="article-content">
         {{ content }}
     </div>
-
-    <!-- Article Tags -->
-    {% if page.tags %}
-    <div class="article-tags">
-        {% for tag in page.tags %}
-        <span class="tag">{{ tag }}</span>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    <!-- Article Navigation -->
-    <nav class="article-nav">
-        {% if page.previous %}
-        <a href="{{ page.previous.url | relative_url }}" class="article-nav-prev">
-            <span class="nav-label">&larr; Previous</span>
-            <span class="nav-title">{{ page.previous.title }}</span>
-        </a>
-        {% endif %}
-        {% if page.next %}
-        <a href="{{ page.next.url | relative_url }}" class="article-nav-next">
-            <span class="nav-label">Next &rarr;</span>
-            <span class="nav-title">{{ page.next.title }}</span>
-        </a>
-        {% endif %}
-    </nav>
-
-    <!-- Related Articles -->
-    {% if site.articles.size > 1 %}
-    <aside class="related-articles">
-        <h3>Related Articles</h3>
-        <div class="related-list">
-            {% for article in site.articles limit:3 %}
-            {% unless article.url == page.url %}
-            <a href="{{ article.url | relative_url }}" class="related-item">
-                <h4>{{ article.title }}</h4>
-                <p>{{ article.description | truncate: 100 }}</p>
-            </a>
-            {% endunless %}
-            {% endfor %}
-        </div>
-    </aside>
-    {% endif %}
-
-    <!-- Affiliate Disclosure -->
     <div class="affiliate-disclosure">
         <p><strong>Disclosure:</strong> 部分链接可能包含联盟营销代码，你的支持帮助我们持续维护这个网站。</p>
     </div>
