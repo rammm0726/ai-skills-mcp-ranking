@@ -10,9 +10,12 @@ reading_time: 15
 author: "AI Skills Team"
 lang: zh
 rating: 4.0
+featured_image: "assets/images/reviews/claude-desktop/interface.svg"
 ---
 
 ## 测评概述
+
+![Claude Desktop 界面](assets/images/reviews/claude-desktop/interface.svg)
 
 **Claude Desktop** 是 Anthropic 官方推出的桌面应用，也是最早原生支持 MCP（Model Context Protocol）的 AI 应用。本次测评我们在 Windows 和 macOS 两个平台上，实际配置并使用了 5 个不同的 MCP 服务器。
 

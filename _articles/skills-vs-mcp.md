@@ -8,9 +8,12 @@ tags: ["Skills", "MCP", "对比", "AI工具", "入门"]
 reading_time: 10
 author: "AI Skills Team"
 lang: zh
+featured_image: "assets/images/articles/skills-vs-mcp/architecture.svg"
 ---
 
 ## 核心区别一览
+
+![架构对比图](assets/images/articles/skills-vs-mcp/architecture.svg)
 
 在深入细节之前，先用一张表概括两者的核心差异：
 

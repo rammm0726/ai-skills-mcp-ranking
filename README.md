@@ -34,7 +34,9 @@ The most popular AI Agent Skills & MCP Server Ranking in China.
 ai-skills-mcp-ranking/
 ├── .github/workflows/   # CI/CD工作流 (deploy.yml、update-data.yml)
 ├── _articles/           # 技术文档、评测原稿 (Markdown)
+├── _reviews/            # 工具评测文章 (Markdown)
 ├── _layouts/            # HTML模板 (default/article)
+├── assets/images/       # 文章图片存储目录
 ├── css/                 # 样式文件，支持暗色主题与响应式
 ├── data/                # skills/mcp 排行榜数据 (JavaScript)
 ├── js/                  # JS业务逻辑与渲染
@@ -140,6 +142,39 @@ python -m http.server 8080
 
 ---
 
+## 新增文章 & 图片处理
+
+### 方式1：从 Obsidian 导入（推荐）
+
+如果您在 Obsidian 中撰写文章，支持自动导入和图片处理：
+
+```bash
+python scripts/import_obsidian.py /path/to/your/article.md article
+# 或
+python scripts/import_obsidian.py /path/to/review.md review
+```
+
+脚本会自动：
+- 解析 Obsidian 的 wiki 链接（![[image.png]]）
+- 查找并复制图片到正确的目录
+- 转换 Markdown 引用格式
+- 生成标准的 Frontmatter
+
+### 方式2：使用创建脚本
+
+快速创建新文章框架：
+
+```bash
+python scripts/create_article.py article "文章标题"
+python scripts/create_article.py review "评测文章标题"
+```
+
+### 方式3：手动创建
+
+参考模板 [docs/ARTICLE_TEMPLATE.md](docs/ARTICLE_TEMPLATE.md) 手动创建。
+
+---
+
 ## 文章与 Frontmatter 规范
 
 技术文章采用 Yaml Frontmatter，支持分类、标签与多语言：
@@ -156,8 +191,16 @@ reading_time: 8
 author: "作者名"
 lang: zh
 layout: article
+featured_image: "assets/images/articles/article-slug/featured.png"
 ---
 ```
+
+### 图片使用规范
+
+- 文章图片放置于：`assets/images/articles/[文章slug]/` 或 `assets/images/reviews/[文章slug]/`
+- Markdown 引用：`![图片描述](assets/images/[类型]/[slug]/image.png)`
+- 图片格式建议：PNG / WebP
+- 特色图片推荐尺寸：1200x630
 
 ---
 

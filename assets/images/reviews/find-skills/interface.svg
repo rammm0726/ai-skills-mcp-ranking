@@ -1,0 +1,29 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="400" fill="#0f172a"/>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="Arial" font-size="24" fill="#fff">find-skills - Skill Search Interface</text>
+
+  <!-- Window frame -->
+  <rect x="50" y="60" width="700" height="300" fill="#1e293b" stroke="#334155" stroke-width="2" rx="8"/>
+
+  <!-- Window title bar -->
+  <rect x="50" y="60" width="700" height="40" fill="#334155" rx="8"/>
+  <circle cx="80" cy="80" r="6" fill="#ef4444"/>
+  <circle cx="100" cy="80" r="6" fill="#f59e0b"/>
+  <circle cx="120" cy="80" r="6" fill="#10b981"/>
+
+  <!-- Search bar -->
+  <rect x="100" y="120" width="600" height="45" fill="#0f172a" stroke="#475569" stroke-width="1" rx="4"/>
+  <text x="120" y="148" font-family="Arial" font-size="14" fill="#94a3b8">Search for skills...</text>
+
+  <!-- Results -->
+  <rect x="100" y="185" width="600" height="55" fill="#1e293b" stroke="#475569" stroke-width="1" rx="4"/>
+  <text x="130" y="218" font-family="Arial" font-size="14" fill="#6366f1" font-weight="bold">1. find-skills - 1.6M installs</text>
+  <text x="130" y="235" font-family="Arial" font-size="12" fill="#94a3b8">Smart search and install Skills</text>
+
+  <rect x="100" y="255" width="600" height="55" fill="#1e293b" stroke="#475569" stroke-width="1" rx="4"/>
+  <text x="130" y="288" font-family="Arial" font-size="14" fill="#6366f1" font-weight="bold">2. frontend-design - 433K installs</text>
+  <text x="130" y="305" font-family="Arial" font-size="12" fill="#94a3b8">Production-grade frontend UI design</text>
+</svg>

@@ -105,6 +105,8 @@ def convert_md(html):
         f = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', f)
         f = re.sub(r'\*(.+?)\*', r'<em>\1</em>', f)
         f = re.sub(r'`(.+?)`', r'<code>\1</code>', f)
+        # Image support
+        f = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', r'<img src="\2" alt="\1" class="article-image">', f)
         f = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', f)
         if f and not f.startswith('<'):
             result.append(f'<p>{f}</p>')
@@ -117,6 +119,19 @@ def process_liquid(content, variables):
     """Process Liquid template variables"""
     result = content
     baseurl = variables.get('baseurl', BASEURL)
+    
+    # Process {% if ... %}...{% endif %} conditionals
+    def process_conditionals(match):
+        condition = match.group(1)
+        true_content = match.group(2)
+        # Parse condition like "page.featured_image"
+        key = condition.replace('page.', '').strip()
+        if variables.get(key):
+            return true_content
+        return ''
+    
+    result = re.sub(r'\{%\s*if\s+([^}]+?)\s*%\}(.*?)\{%\s*endif\s*%\}', process_conditionals, result, flags=re.DOTALL)
+    
     # {{ '/xxx' | relative_url }}
     result = re.sub(r'\{\{\s*[\'"](.+?)[\'"]\s*\|\s*relative_url\s*\}\}', lambda m: baseurl + m.group(1), result)
     # {{ xxx | default: yyy }}
@@ -126,9 +141,9 @@ def process_liquid(content, variables):
         return str(val) if val else m.group(2).strip().strip("'\"")
     result = re.sub(r'\{\{\s*([^|}]+?)\s*\|\s*default:\s*([^}]+?)\s*\}\}', default_filter, result)
     # {{ xxx | escape }}
-    result = re.sub(r'\{\{\s*([^|}]+?)\s*\|\s*escape\s*\}\}', lambda m: str(variables.get(m.group(1).replace('page.','').replace('site.','',''), '')).replace('<','&lt;').replace('>','&gt;'), result)
+    result = re.sub(r'\{\{\s*([^|}]+?)\s*\|\s*escape\s*\}\}', lambda m: str(variables.get(m.group(1).replace('page.','').replace('site.',''), '')).replace('<','&lt;').replace('>','&gt;'), result)
     # Remove remaining {% %} tags
-    result = re.sub(r'\{%[^%]*%\}', '', result)
+    result = re.sub(r'\{%[^}]*%\}', '', result)
     # Replace {{ page.xxx }} and {{ site.xxx }}
     for key, value in variables.items():
         if value is None: value = ''
@@ -141,31 +156,34 @@ def process_liquid(content, variables):
 
 def load_articles():
     articles = []
-    articles_dir = SITE_DIR / "_articles"
-    if not articles_dir.exists():
-        return articles
-    for md_file in articles_dir.glob("*.md"):
-        with open(md_file, 'r', encoding='utf-8') as f:
-            content = f.read()
-        fm, body = parse_frontmatter(content)
-        meta = parse_yaml(fm)
-        layout = meta.get('layout', 'article')
-        slug = md_file.stem
-        if layout == 'review':
-            url = 'reviews/' + slug + '/'
-        else:
-            url = 'articles/' + slug + '/'
-        articles.append({
-            'title': meta.get('title', slug),
-            'subtitle': meta.get('subtitle', ''),
-            'description': meta.get('description', ''),
-            'category': meta.get('category', 'article'),
-            'date': meta.get('date', ''),
-            'reading_time': meta.get('reading_time', '5'),
-            'url': url,
-            'content': body,
-            'layout': layout
-        })
+    # Load from both _articles and _reviews directories
+    for dir_name in ['_articles', '_reviews']:
+        articles_dir = SITE_DIR / dir_name
+        if not articles_dir.exists():
+            continue
+        for md_file in articles_dir.glob("*.md"):
+            with open(md_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            fm, body = parse_frontmatter(content)
+            meta = parse_yaml(fm)
+            layout = meta.get('layout', 'article')
+            slug = md_file.stem
+            if layout == 'review' or dir_name == '_reviews':
+                url = 'reviews/' + slug + '/'
+            else:
+                url = 'articles/' + slug + '/'
+            articles.append({
+                'title': meta.get('title', slug),
+                'subtitle': meta.get('subtitle', ''),
+                'description': meta.get('description', ''),
+                'category': meta.get('category', 'article'),
+                'date': meta.get('date', ''),
+                'reading_time': meta.get('reading_time', '5'),
+                'featured_image': meta.get('featured_image', ''),
+                'url': url,
+                'content': body,
+                'layout': layout
+            })
     articles.sort(key=lambda x: x.get('date', ''), reverse=True)
     return articles
 
@@ -188,7 +206,7 @@ def build_site():
     }
 
     # Copy static assets
-    for folder in ['css', 'js', 'data']:
+    for folder in ['css', 'js', 'data', 'assets']:
         src = SITE_DIR / folder
         if src.exists():
             dst = OUTPUT_DIR / folder

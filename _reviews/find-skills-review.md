@@ -10,9 +10,12 @@ reading_time: 12
 author: "AI Skills Team"
 lang: zh
 rating: 4.5
+featured_image: "assets/images/reviews/find-skills/interface.svg"
 ---
 
 ## 测评概述
+
+![find-skills界面](assets/images/reviews/find-skills/interface.svg)
 
 **find-skills** 是目前安装量最高的 AI Agent Skill，累计安装量超过 **160万次**。它由 Vercel Labs 开发，核心功能是帮助用户智能搜索和安装其他 Skills。
 

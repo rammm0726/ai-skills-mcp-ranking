@@ -8,9 +8,12 @@ tags: ["MCP", "入门指南", "AI工具", "Anthropic"]
 reading_time: 8
 author: "AI Skills Team"
 lang: zh
+featured_image: "assets/images/articles/what-is-mcp-server/flow-diagram.svg"
 ---
 
 ## 什么是MCP？
+
+![MCP工作流程](assets/images/articles/what-is-mcp-server/flow-diagram.svg)
 
 **MCP（Model Context Protocol）** 是由 [Anthropic](https://www.anthropic.com/) 推出的开放协议，旨在标准化AI助手与外部数据源、工具之间的连接方式。
 
