@@ -1,64 +1,168 @@
 # AI Agent Skills & MCP Ranking
 
-全网最受欢迎的 AI Agent 技能包和 MCP 服务器榜单。
+全网最受欢迎的 AI Agent 技能包和 MCP 服务器排行榜  
+The most popular AI Agent Skills & MCP Server Ranking in China.
 
-## 访问地址
+[Online Demo 在线预览](https://rammm0726.github.io/ai-skills-mcp-ranking/)
 
-**GitHub Pages:** https://rrramxy.github.io/ai-skills-mcp-ranking/
+---
 
-## 功能特性
+## 项目简介 / Project Overview
 
-- **Skills 排行榜** - 展示最受欢迎的 AI Agent 技能包
-- **MCP 服务器排行榜** - 展示最受欢迎的 MCP 服务器
-- **实时搜索** - 支持按名称、功能搜索
-- **分类筛选** - 按前端、Azure、工具、设计等分类筛选
-- **一键复制** - 点击安装命令即可复制
-- **中英文切换** - 支持 CN/EN 界面
-- **自动更新** - 每周一自动更新数据
+- 展示全网最受欢迎的 AI Agent Skills 及 MCP 服务器排行榜
+- 提供技术文章、工具测评、SEO 优化内容
+- 实时搜索与分类筛选（支持中英文界面切换）
+- 一键复制安装指令，自动数据更新
+- 完全静态站点，部署于 GitHub Pages
 
-## 数据来源
+---
 
-- [skills.sh](https://skills.sh/) - Skills 排行榜
-- [awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) - MCP 服务器列表
-- [mcp.so](https://mcp.so) - MCP 聚合平台
-- [skillhub.cn](https://skillhub.cn/) - 技能包聚合平台
+## 特性 Features
 
-## 本地开发
+- **Skills 排行榜**：热门 AI Agent Skills 人气排行
+- **MCP 服务器榜单**：优质 MCP Server 推荐与数据
+- **技术文章 & 工具测评**：详解、对比与入门指南
+- **支持搜索/分类筛选/一键复制**：提升用户体验
+- **中英双语切换/暗黑主题/响应式布局**
+- **自动数据更新**：每周一 GitHub Actions 定时更新
 
+---
+
+## 目录结构 Directory Structure
+
+```
+ai-skills-mcp-ranking/
+├── .github/workflows/   # CI/CD工作流 (deploy.yml、update-data.yml)
+├── _articles/           # 技术文档、评测原稿 (Markdown)
+├── _layouts/            # HTML模板 (default/article)
+├── css/                 # 样式文件，支持暗色主题与响应式
+├── data/                # skills/mcp 排行榜数据 (JavaScript)
+├── js/                  # JS业务逻辑与渲染
+├── scripts/             # Python构建脚本 (build.py)
+├── index.html           # 主页面 (Skills/MCP + 文章Tab)
+└── README.md
+```
+
+---
+
+## 数据结构 Data Structure
+
+**Skills 示例**
+```js
+SKILLS_DATA = {
+    lastUpdated: "2026-05-20",
+    totalInstalls: "1.6M+",
+    source: "skills.sh",
+    skills: [
+        {
+            rank: 1,
+            name: "find-skills",
+            source: "vercel-labs",
+            installs: "1.6M",
+            category: "tool",
+            categoryName: { zh: "工具", en: "Tools" },
+            purpose: { zh: "智能搜索和安装 Skills", en: "Smart search and install Skills" },
+            command: "npx skills add vercel-labs/skills@find-skills"
+        }
+    ]
+}
+```
+**MCP 示例**
+```js
+MCP_DATA = {
+    lastUpdated: "2026-05-20",
+    totalStars: "64K+",
+    source: "awesome-mcp-servers",
+    servers: [
+        {
+            rank: 1,
+            name: "Filesystem MCP",
+            source: "modelcontextprotocol",
+            stars: "64K",
+            category: "tool",
+            categoryName: { zh: "工具", en: "Tools" },
+            purpose: { zh: "文件系统管理", en: "File system management" },
+            command: "npx @modelcontextprotocol/server-filesystem <path>"
+        }
+    ]
+}
+```
+
+---
+
+## 本地开发与构建
+
+**依赖环境**
+- Python 3.x (`markdown`库)
+- Node.js/现代浏览器
+
+**快速开始**
 ```bash
 # 克隆仓库
-git clone https://github.com/rrramxy/ai-skills-mcp-ranking.git
+git clone https://github.com/rammm0726/ai-skills-mcp-ranking.git
 cd ai-skills-mcp-ranking
 
 # 构建静态文件
 python scripts/build.py
 
-# 启动本地服务器
+# 本地预览
 npx serve .
 # 或
 python -m http.server 8080
 ```
+---
 
-## 项目结构
+## 自动化与部署
 
+- 基于 GitHub Actions 自动构建与数据刷新
+  - `.github/workflows/deploy.yml`：推送即部署至 GitHub Pages
+  - `.github/workflows/update-data.yml`：每周一自动拉取最新排行榜
+- 产物发布到 [Pages 站点](https://rammm0726.github.io/ai-skills-mcp-ranking/)  
+
+---
+
+## 技术栈 Tech Stack
+
+- 前端：HTML、CSS（暗色主题/响应式）、原生 JavaScript
+- 构建：Python（静态 Markdown 转 HTML）
+- 部署：GitHub Pages + Actions
+
+---
+
+## 数据来源 Data Sources
+
+| 源站         | 说明                                    |
+| ------------ | --------------------------------------- |
+| [skills.sh](https://skills.sh/)                  | Skills 排行榜官方数据 |
+| [awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) | 开源MCP服务器列表 |
+| [mcp.so](https://mcp.so)                        | MCP 聚合平台        |
+| [skillhub.cn](https://skillhub.cn/)             | 技能包聚合/搜索      |
+
+---
+
+## 文章与 Frontmatter 规范
+
+技术文章采用 Yaml Frontmatter，支持分类、标签与多语言：
+
+```yaml
+---
+title: "文章标题"
+subtitle: "副标题"
+description: "SEO 描述"
+date: 2026-05-20
+category: "教程"
+tags: ["MCP", "入门指南"]
+reading_time: 8
+author: "作者名"
+lang: zh
+layout: article
+---
 ```
-ai-skills-mcp-ranking/
-├── .github/workflows/    # GitHub Actions
-├── _articles/           # Markdown 文章源文件
-├── _layouts/           # HTML 模板
-├── css/                # 样式文件
-├── data/               # 数据文件
-├── js/                 # JavaScript
-├── scripts/            # 构建脚本
-└── index.html          # 主页面
-```
 
-## 技术栈
-
-- 前端：纯 HTML/CSS/JS（无框架）
-- 构建：Python 3.x + Markdown
-- 部署：GitHub Pages + GitHub Actions
+---
 
 ## License
 
 MIT License
+
+> 最后更新：2026-05-22
