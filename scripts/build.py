@@ -31,7 +31,7 @@ def parse_yaml(text):
             data[key] = value
     return data
 
-def convert_md(html):
+def convert_md(html, baseurl=''):
     """Convert markdown to HTML (line-by-line for correct table/list handling)"""
     lines = html.split('\n')
     result = []
@@ -105,8 +105,20 @@ def convert_md(html):
         f = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', f)
         f = re.sub(r'\*(.+?)\*', r'<em>\1</em>', f)
         f = re.sub(r'`(.+?)`', r'<code>\1</code>', f)
-        # Image support
-        f = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', r'<img src="\2" alt="\1" class="article-image">', f)
+        
+        # Image support - fix path with baseurl
+        def fix_image_path(match):
+            alt = match.group(1)
+            src = match.group(2)
+            # Don't fix absolute URLs
+            if src.startswith('http://') or src.startswith('https://') or src.startswith('/'):
+                return f'<img src="{src}" alt="{alt}" class="article-image">'
+            # Fix relative paths
+            return f'<img src="{baseurl}/{src}" alt="{alt}" class="article-image">'
+        
+        f = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', fix_image_path, f)
+        
+        # Link support
         f = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', f)
         if f and not f.startswith('<'):
             result.append(f'<p>{f}</p>')
@@ -147,9 +159,13 @@ def process_liquid(content, variables):
     # Replace {{ page.xxx }} and {{ site.xxx }}
     for key, value in variables.items():
         if value is None: value = ''
-        result = result.replace('{{ page.' + key + ' }}', str(value))
-        result = result.replace('{{ site.' + key + ' }}', str(value))
-        result = result.replace('{{ ' + key + ' }}', str(value))
+        str_value = str(value)
+        # Fix featured_image path
+        if key == 'featured_image' and str_value and not str_value.startswith('http://') and not str_value.startswith('https://') and not str_value.startswith('/'):
+            str_value = baseurl + '/' + str_value
+        result = result.replace('{{ page.' + key + ' }}', str_value)
+        result = result.replace('{{ site.' + key + ' }}', str_value)
+        result = result.replace('{{ ' + key + ' }}', str_value)
     # Remove any remaining {{ }}
     result = re.sub(r'\{\{.*?\}\}', '', result)
     return result
@@ -223,7 +239,7 @@ def build_site():
         out_dir.mkdir(parents=True, exist_ok=True)
         out_file = out_dir / "index.html"
 
-        html_body = convert_md(article['content'])
+        html_body = convert_md(article['content'], baseurl=site_config['baseurl'])
         page_vars = {k: v for k, v in article.items() if k != 'content'}
         page_vars['content'] = html_body
 
