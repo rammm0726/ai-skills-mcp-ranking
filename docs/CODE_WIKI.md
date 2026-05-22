@@ -15,6 +15,8 @@
 - 构建：自定义 Python 脚本（`scripts/build.py`）
 - 部署：GitHub Pages + GitHub Actions
 
+**访问地址：** https://rammm0726.github.io/ai-skills-mcp-ranking/
+
 ---
 
 ## 目录结构
