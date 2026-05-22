@@ -51,12 +51,11 @@ title: "文章标题"
 subtitle: "副标题"
 description: "SEO 描述"
 date: 2026-05-22
-category: "教程"        # 教程、对比、测评
+category: "教程"
 tags: []
 reading_time: 5
 author: ""
 lang: zh
-featured_image: "assets/images/article-slug/image.png"
 ---
 
 文章正文...

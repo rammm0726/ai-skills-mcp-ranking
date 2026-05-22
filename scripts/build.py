@@ -117,6 +117,7 @@ def process_liquid(content, variables):
     """Process Liquid template variables"""
     result = content
     baseurl = variables.get('baseurl', BASEURL)
+
     # {{ '/xxx' | relative_url }}
     result = re.sub(r'\{\{\s*[\'"](.+?)[\'"]\s*\|\s*relative_url\s*\}\}', lambda m: baseurl + m.group(1), result)
     # {{ xxx | default: yyy }}
@@ -126,7 +127,7 @@ def process_liquid(content, variables):
         return str(val) if val else m.group(2).strip().strip("'\"")
     result = re.sub(r'\{\{\s*([^|}]+?)\s*\|\s*default:\s*([^}]+?)\s*\}\}', default_filter, result)
     # {{ xxx | escape }}
-    result = re.sub(r'\{\{\s*([^|}]+?)\s*\|\s*escape\s*\}\}', lambda m: str(variables.get(m.group(1).replace('page.','').replace('site.','',''), '')).replace('<','&lt;').replace('>','&gt;'), result)
+    result = re.sub(r'\{\{\s*([^|}]+?)\s*\|\s*escape\s*\}\}', lambda m: str(variables.get(m.group(1).replace('page.','').replace('site.',''), '')).replace('<','&lt;').replace('>','&gt;'), result)
     # Remove remaining {% %} tags
     result = re.sub(r'\{%[^%]*%\}', '', result)
     # Replace {{ page.xxx }} and {{ site.xxx }}
